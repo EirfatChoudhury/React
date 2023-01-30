@@ -1,18 +1,21 @@
-const Hello = (props) => {
+const Header = (props) => {
   console.log(props)
   return (
-    <div>
-      <p>Hello world {props.name}, you are {props.age}</p>
-    </div>
+    <>
+      <h1>{props.course}</h1>
+    </>
   )
 }
 
 const App = () => {
-  const friends = [ 'Peter', 'Maya']
+  // const-definitions
+  const course = 'Half Stack application development'
 
   return (
     <div>
-      <p>{friends}</p>
+      <Header course={course} />
+      <Content />
+      <Total />
     </div>
   )
 }
