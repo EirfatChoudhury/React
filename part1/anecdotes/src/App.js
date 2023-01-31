@@ -15,13 +15,50 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+
+  const [points, setAllPoints] = useState(Array(8).fill(0))
+
   const random = () => setSelected(Math.floor(Math.random() * 8))
+
+  const vote = () => {
+    const newPoints = [...points]
+    newPoints[selected] += 1
+    setAllPoints(newPoints)
+  }
+
+  const Winner = () => {
+    const highestVoteCount = Math.max(...points)
+    const winnerIndex = points.indexOf(highestVoteCount)
+    const winner = anecdotes[winnerIndex]
+    if (highestVoteCount === 0) {
+      return (
+        <p>No votes yet</p>
+      )
+    }
+
+    return (
+      <div>
+        <p>{winner}</p>
+        <p>has {highestVoteCount} votes</p>
+      </div>
+    )
+  }
+  
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
+      <br></br>
       {anecdotes[selected]}
       <br></br>
+      This quote has {points[selected]} votes
+      <Button onClick={vote} text="vote" />
       <Button onClick={random} text="next anecdote" />
+      <br></br>
+
+      <h1>Highest voted anecdote</h1>
+      <br></br>
+      <Winner />
     </div>
   )
 }
