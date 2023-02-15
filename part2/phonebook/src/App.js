@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Content from './components/Content'
 import Filter from './components/Filter'
 import Form from './components/Form'
+import Notification from './components/Notification'
 import personService from './services/persons'
 
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
+  const [notifMessage, setNotifMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -67,6 +69,10 @@ const App = () => {
 
     console.log(persons)
     }
+
+    setNotifMessage(`${nameObject.name} was successfully added`)
+
+    setTimeout(() => {setNotifMessage(null)}, 5000)
   }
 
   const deleteNameNumber = (id) => (event) => {
@@ -89,6 +95,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notifMessage} />
       <h2>Filter</h2>
       filter: <Filter value={newFilter} handleChange={handleChange} set={setNewFilter}/>
       <h2>Add name and number</h2>
